@@ -1,7 +1,19 @@
-We use part 7, 8, 9, 10 images from https://www.crcv.ucf.edu/data/GMCP_Geolocalization/
+**FaceMap**: interpolating/transferring real-time user faces onto semantically-segmented StreetView buildings/roads/sky/... (see the world as you)
 
-The 1st and 2nd columns are the latitude and longitude values. The 3rd column is the
-compass direction (in degrees from North towards West) of the view number 4. The rest of the
-side views are exactly 90° apart from the view number 4
+<img src="/client/static/img/sample1.png" height="200"><img src="/client/static/img/sample2.png" height="200">
+<img src="/client/static/img/sample3.png" height="200"><img src="/client/static/img/sample4.png" height="200">
 
+High-level implementation description:
+* Made use of public StreetView datasets for raw images with location coordinates to bypass API call limits
+* Relayed webcam data over to a server along with user keystrokes, so that the player's face can be implanted onto the streetview
+* Made use of fast neural style transfer, contour analysis of scenes, semantic segmentation (detectron2) to decompose scenes into components such as they sky, road, cars, etc, and transfer weighted/interpolated masks of the users' warped faces in real-time``
+* Built a front-end with javascript, and connected it to flask python server to run all the image processing and load balancing
 
+Installation instructions:
+* Install `detectron2` from sources or through facebook's instructions
+* Download [streets dataset](https://www.crcv.ucf.edu/data/GMCP_Geolocalization/)
+* Run `client/game.py`
+
+Demo video:
+
+[<img src="/client/static/img/sample0.png" height="400">](https://www.youtube.com/watch?v=Jo9Km3TbcAg)
